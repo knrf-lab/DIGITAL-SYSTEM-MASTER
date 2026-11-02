@@ -1,0 +1,55 @@
+<section class="t-kmap">
+<anchor id="s3-gt" />
+<h2 class="sec"><span>Soal cerita, contoh lengkap: “Got Talent” (papan tulis)</span><span class="tab">3</span></h2>
+<div class="flow">
+<div><b>1. Tentukan I/O</b>input = variabel, output = y; arti 1 &amp; 0</div>
+<div><b>2. Truth table</b>2ⁿ baris, isi y = 1 di baris yang memenuhi syarat</div>
+<div><b>3. Σm / ΠM</b>baris y = 1 → minterm (SOP); y = 0 → maxterm (POS)</div>
+<div><b>4. K-map</b>group 1 (SOP) atau 0 (POS) → persamaan minimal</div>
+<div><b>5. Rangkaian</b>AND–OR dari SOP (atau NAND–NAND)</div>
+</div>
+<div class="box"><b>Soal:</b> Panitia CEAFO membuat lomba <i>got talent</i> dengan <b>3 juri</b>. Peserta <b>lolos</b> ke babak berikutnya jika <b>mayoritas</b> juri setuju. Rancang rangkaian logikanya.</div>
+<div class="two">
+<div>
+<h4>Langkah 1 · I/O</h4>
+<p class="small">Input: <b>a, b, c</b> = juri 1, 2, 3 (1 = setuju, 0 = tidak). Output: <b>y</b> = 1 lolos, 0 gagal. Mayoritas dari 3 = minimal 2 setuju.</p>
+<h4>Langkah 2 · Truth table (2³ = 8 baris)</h4>
+{{inc:gt_tt}}
+<h4>Langkah 3 · Bentuk kanonik</h4>
+<div class="small">{{inc:gt_canon}}</div>
+</div>
+<div>
+<h4>Langkah 4 · K-map</h4>
+<div class="row">{{inc:gt_kmap_sop}}{{inc:gt_kmap_pos}}</div>
+<p class="res">{{inc:gt_res}}</p>
+<p class="small">Sel m7 (abc = 111) dipakai 3 grup sekaligus. Itu boleh (overlap). Hasil sama dengan Boolean algebra di {{p:s2-ex}} (contoh D).</p>
+<h4>Langkah 5 · Rangkaian (AND–OR)</h4>
+<div class="svgw">{{svg:c_major}}</div>
+<p class="small">3 gerbang AND 2-input + 1 OR 3-input. Versi NAND–NAND: \(y=\overline{\overline{ab}\cdot\overline{ac}\cdot\overline{bc}}\).</p>
+</div>
+</div>
+<div class="warn">Baca kata kunci syarat dengan teliti: “minimal / paling sedikit 2” = ≥ 2 · “tepat satu” = XOR · “tidak keduanya” = NAND · “jika A maka B” hanya mengatur baris dengan A = 1, baris lain ikut aturan lain atau 0. Tuliskan alasan tiap baris di samping truth table (lihat kolom “alasan”).</div>
+</section>
+
+<section class="t-kmap">
+<anchor id="s3-case" />
+<h2 class="sec"><span>3 case PR Pert. 5: truth table → K-map</span><span class="tab">3</span></h2>
+<div class="ex"><div class="t">Case 1 · AMR navigation interlock</div>
+<p class="small">A = LiDAR obstacle, B = track lost, C = bumper ditekan. Y = 1 → divert.
+<b>C = 1:</b> trip hanya jika <b>tepat satu</b> dari A, B aktif → Y = A⊕B (m3, m5).
+<b>C = 0:</b> trip jika A = 0, atau A = 1 &amp; B = 0, <b>kecuali</b> A = B = C = 0 → m2, m4 (m0 dikecualikan, m6 = 0).
+<b>Failsafe</b> A = 0, B = 1, C = 0 → m2 (sudah termasuk).</p>
+<div class="row">{{inc:case_amr_tt}}{{inc:case_amr_sop}}{{inc:case_amr_pos}}</div>
+{{inc:case_amr_res}}
+<p class="small"><b>C ternyata tidak berpengaruh</b>: kalimatnya panjang, tapi hasilnya hanya XOR. (Cheat sheet teman menyebut case ini “ambigu”; setelah dibuat truth table per aturan, jawabannya jelas.)</p></div>
+<div class="ex"><div class="t">Case 2 · Avionics data bus arbiter</div>
+<p class="small">A = watchdog fault, B = CRC error, C = voltage ripple. Rule 1: B = 1 &amp; C = 1 → Y = 1 (A bebas) → m3, m7. Rule 2: C = 0 &amp; A ≠ B → m2, m4. Rule 3: A = B = 0 &amp; C = 1 → Y = 0 (m1). Baris lain tidak trip.</p>
+<div class="row">{{inc:case_avi_tt}}{{inc:case_avi_sop}}{{inc:case_avi_pos}}</div>
+{{inc:case_avi_res}}
+<p class="small">m4 (100) berdiri sendiri: tetangganya m0, m5, m6 semuanya 0.</p></div>
+<div class="ex"><div class="t">Case 3 · Battery thermal runaway isolation</div>
+<p class="small">A = overcurrent, B = thermal gradient, C = off-gas. A = 1: fire <b>iff</b> C = 1 → m5, m7 (m4, m6 = 0). A = 0 &amp; C = 1: fire jika B = 0 → m1 (m3 = 0). C = 0: fire iff A = 0 (B bebas) → m0, m2.</p>
+<div class="row">{{inc:case_bat_tt}}{{inc:case_bat_sop}}{{inc:case_bat_pos}}</div>
+{{inc:case_bat_res}}
+<p class="small">m1 juga bisa dipasangkan dengan m0 (\(\bar A\bar B\)) — sama panjangnya, sama-sama benar.</p></div>
+</section>

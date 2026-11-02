@@ -1,0 +1,41 @@
+<section class="t-start">
+<anchor id="SI" label="I · Index" />
+<h2 class="sec"><span>Index: kata di soal → metode → halaman</span><span class="tab">I</span></h2>
+<table class="idx">
+<tr class="grp"><td colspan="3">Soal 1 · Konsep</td></tr>
+<tr><td>“apa itu sistem digital”, “sinyal”, “logika”</td><td>sinyal hanya 0/1 (LOW/HIGH); fokus logika &amp; gerbang</td><td>{{p:s1-def}}</td></tr>
+<tr><td>“analog vs digital”, “kelebihan digital”</td><td>tabel kontinu vs diskrit</td><td>{{p:s1-def}}</td></tr>
+<tr><td>“TTL”, “level tegangan”, “HIGH/LOW”</td><td>0 V / 5 V; input LOW ≤ 0.8 V, HIGH ≥ 2.0 V</td><td>{{p:s1-ttl}}</td></tr>
+<tr><td>“rising / falling edge”, “periode”, “duty cycle”</td><td>LOW→HIGH / HIGH→LOW; f = 1/T; D = t<sub>W</sub>/T</td><td>{{p:s1-ttl}}</td></tr>
+<tr><td>“timing diagram”, “gambarkan output”, “bentuk gelombang”</td><td>tiap interval = 1 baris truth table</td><td>{{p:s1-wave}}</td></tr>
+<tr><td>“gerbang logika”, simbol gate, “tabel kebenaran gerbang”</td><td>tabel 7 gerbang</td><td>{{p:s1-gates}}</td></tr>
+<tr class="grp"><td colspan="3">Soal 3 · Sederhanakan</td></tr>
+<tr><td>“sederhanakan”, “simplify”, “buktikan”, “prove”</td><td>resep 6 langkah + nama hukum</td><td>{{p:s2-recipe}}</td></tr>
+<tr><td>bar panjang di atas grup</td><td>De Morgan (dari bar paling luar)</td><td>{{p:s2-laws}}</td></tr>
+<tr><td>\(x + \bar x y\), \(x + xy\), \((x+y)(x+z)\)</td><td>rule 11, absorption, rule 12</td><td>{{p:s2-laws}}</td></tr>
+<tr><td>3 term dengan pasangan \(x, \bar x\)</td><td>consensus</td><td>{{p:s2-laws}}</td></tr>
+<tr><td>⊕ / XOR di dalam soal</td><td>perlakukan (a⊕b) sebagai 1 variabel, lalu expand</td><td>{{p:s2-ex}}</td></tr>
+<tr><td>a + 0, \(\bar a\cdot 0\), … (soal identitas singkat)</td><td>tabel 27 identitas</td><td>{{p:s2-27}}</td></tr>
+<tr class="grp"><td colspan="3">Soal 4 · Soal cerita &amp; K-map</td></tr>
+<tr><td>“panitia”, “juri”, “mayoritas”, “lolos”, “jika … maka …”</td><td>5 langkah: I/O → truth table → Σm → K-map → rangkaian</td><td>{{p:s3-gt}}</td></tr>
+<tr><td>“minterm”, “maxterm”, “SOP”, “POS”, Σm, ΠM</td><td>tabel minterm/maxterm</td><td>{{p:s3-mm}}</td></tr>
+<tr><td>“K-map”, “peta Karnaugh”, 2/3/4/5 variabel</td><td>template + aturan grouping</td><td>{{p:s3-tpl}}</td></tr>
+<tr><td>“don't care”, X, “kombinasi tidak mungkin terjadi”</td><td>X = 1 hanya kalau membesarkan grup</td><td>{{p:s3-dc}}</td></tr>
+<tr><td>“gambarkan rangkaian logika”</td><td>AND–OR dari SOP (atau NAND–NAND)</td><td>{{p:s3-circ}}</td></tr>
+<tr><td>robot / avionics / baterai (PR5 case)</td><td>3 case terpecahkan</td><td>{{p:s3-case}}</td></tr>
+<tr class="grp"><td colspan="3">Soal 2 · LED / 7-segment</td></tr>
+<tr><td>“BCD ke 7-segment”, “decoder”, “nyala / padam”</td><td>tabel lengkap + 7 K-map</td><td>{{p:S4}}</td></tr>
+<tr><td>“common cathode / common anode”, “active-low”</td><td>CC: 1 = nyala · CA: 0 = nyala</td><td>{{p:s4-cc}}</td></tr>
+<tr><td>“hanya angka 0–7”, “heksadesimal 0–F”, huruf</td><td>variasi soal</td><td>{{p:s4-var}}</td></tr>
+<tr class="grp"><td colspan="3">Lainnya</td></tr>
+<tr><td>“konversi biner/oktal/heksa”, “2's complement”, “kurangkan”</td><td>pembagian berulang · flip + 1 lalu jumlahkan</td><td>{{p:s5-num}}</td></tr>
+<tr><td>“NAND saja”, “universal gate”</td><td>SOP → NAND–NAND</td><td>{{p:s5-nand}}</td></tr>
+</table>
+
+<h3>Glossary: kata soal ↔ istilah</h3>
+<div class="three small">
+<table class="full"><tr><td>sederhanakan</td><td>simplify</td></tr><tr><td>buktikan</td><td>prove</td></tr><tr><td>tabel kebenaran</td><td>truth table</td></tr><tr><td>persamaan</td><td>expression / equation</td></tr><tr><td>rangkaian</td><td>circuit</td></tr><tr><td>gerbang</td><td>gate</td></tr></table>
+<table class="full"><tr><td>masukan / keluaran</td><td>input / output</td></tr><tr><td>nyala / padam</td><td>ON (1) / OFF (0)</td></tr><tr><td>tepi naik / turun</td><td>rising / falling edge</td></tr><tr><td>gelombang</td><td>waveform</td></tr><tr><td>tegangan</td><td>voltage</td></tr><tr><td>pengurai sandi</td><td>decoder</td></tr></table>
+<table class="full"><tr><td>minimal / paling sederhana</td><td>minimal SOP/POS</td></tr><tr><td>suku hasil kali</td><td>product term</td></tr><tr><td>suku jumlah</td><td>sum term</td></tr><tr><td>tidak peduli</td><td>don't care (X)</td></tr><tr><td>mayoritas</td><td>≥ setengah setuju</td></tr><tr><td>tepat satu</td><td>exactly one (XOR)</td></tr></table>
+</div>
+</section>

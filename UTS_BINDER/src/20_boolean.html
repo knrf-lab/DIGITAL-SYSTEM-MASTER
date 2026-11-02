@@ -1,0 +1,67 @@
+<section class="t-bool">
+<anchor id="S2" label="2 · Boolean algebra" />
+<anchor id="s2-laws" />
+<h2 class="sec"><span>Boolean Algebra: hukum &amp; pattern finder <span class="sub">· soal 3</span></span><span class="tab">2</span></h2>
+<div class="two">
+<div>
+<h3><span class="n">1</span>12 rules (penomoran Floyd)</h3>
+<table class="full">
+<thead><tr><th>#</th><th>Rule</th><th>Nama</th></tr></thead>
+<tr><td>1</td><td>\(a + 0 = a\)</td><td class="law">identity</td></tr>
+<tr><td>2</td><td>\(a + 1 = 1\)</td><td class="law">null / dominance</td></tr>
+<tr><td>3</td><td>\(a \cdot 0 = 0\)</td><td class="law">null / dominance</td></tr>
+<tr><td>4</td><td>\(a \cdot 1 = a\)</td><td class="law">identity</td></tr>
+<tr><td>5</td><td>\(a + a = a\)</td><td class="law">idempotent</td></tr>
+<tr><td>6</td><td>\(a + \bar a = 1\)</td><td class="law">complement</td></tr>
+<tr><td>7</td><td>\(a \cdot a = a\)</td><td class="law">idempotent</td></tr>
+<tr><td>8</td><td>\(a \cdot \bar a = 0\)</td><td class="law">complement</td></tr>
+<tr><td>9</td><td>\(\bar{\bar a} = a\)</td><td class="law">double negation / involution</td></tr>
+<tr><td>10</td><td>\(a + ab = a\)</td><td class="law">absorption</td></tr>
+<tr><td>11</td><td>\(a + \bar a b = a + b\)</td><td class="law">absorption 2</td></tr>
+<tr><td>12</td><td>\((a+b)(a+c) = a + bc\)</td><td class="law">distributive (OR atas AND)</td></tr>
+</table>
+<h3><span class="n">2</span>Laws</h3>
+<table class="full">
+<thead><tr><th>Law</th><th>OR</th><th>AND</th></tr></thead>
+<tr><td>Commutative</td><td>\(a+b=b+a\)</td><td>\(ab=ba\)</td></tr>
+<tr><td>Associative</td><td>\(a+(b+c)=(a+b)+c\)</td><td>\(a(bc)=(ab)c\)</td></tr>
+<tr><td>Distributive</td><td>\(a+bc=(a+b)(a+c)\)</td><td>\(a(b+c)=ab+ac\)</td></tr>
+<tr><td>De Morgan</td><td>\(\overline{a+b}=\bar a\,\bar b\)</td><td>\(\overline{ab}=\bar a+\bar b\)</td></tr>
+<tr><td>Consensus</td><td colspan="2">\(ab+\bar a c+bc = ab+\bar a c\) &nbsp;·&nbsp; dual: \((a+b)(\bar a+c)(b+c)=(a+b)(\bar a+c)\)</td></tr>
+<tr><td>Dual absorpsi</td><td colspan="2">\(a(a+b)=a\) &nbsp;·&nbsp; \(a(\bar a+b)=ab\) &nbsp;·&nbsp; \(ab+a\bar b=a\)</td></tr>
+<tr><td>XOR</td><td colspan="2">\(a\oplus 0=a\) · \(a\oplus 1=\bar a\) · \(a\oplus a=0\) · \(a\oplus\bar a=1\)</td></tr>
+</table>
+<div class="tip"><b>De Morgan:</b> “putus bar-nya, ganti tandanya”: bar panjang dipotong jadi bar per variabel, + ↔ ·. Berlaku untuk banyak variabel: \(\overline{abc}=\bar a+\bar b+\bar c\).</div>
+</div>
+<div>
+<h3><span class="n">3</span>Pattern finder: kalau lihat ini, pakai itu</h3>
+<table class="full small">
+<thead><tr><th>Di soal ada …</th><th>Contoh</th><th>Pakai → hasil</th></tr></thead>
+<tr><td>bar panjang di atas grup</td><td>\(\overline{a+bc}\)</td><td>De Morgan → \(\bar a(\bar b+\bar c)\)</td></tr>
+<tr><td>x + term yang memuat x</td><td>\(b+bc\)</td><td>absorption → \(b\)</td></tr>
+<tr><td>x + term yang memuat \(\bar x\)</td><td>\(a+\bar a b\)</td><td>rule 11 → \(a+b\)</td></tr>
+<tr><td>2 term beda di 1 variabel saja</td><td>\(abc+ab\bar c\)</td><td>factor + rule 6 → \(ab\)</td></tr>
+<tr><td>2 kurung, bagian depan sama</td><td>\((a+b)(a+c)\)</td><td>rule 12 → \(a+bc\)</td></tr>
+<tr><td>2 kurung beda 1 variabel</td><td>\((x+c)(x+\bar c)\)</td><td>rule 12 → \(x\)</td></tr>
+<tr><td>3 term, ada pasangan \(x,\bar x\)</td><td>\(ab+\bar a c+bc\)</td><td>consensus → \(ab+\bar a c\)</td></tr>
+<tr><td>\(x\bar x\) atau \(x+\bar x\)</td><td>\(c\bar c\), \(d+\bar d\)</td><td>complement → 0, 1</td></tr>
+<tr><td>bar ganda</td><td>\(\bar{\bar a}\)</td><td>involution → \(a\)</td></tr>
+<tr><td>term panjang (a+b) muncul berulang</td><td>\((a+b+c)(a+b+\bar c)\)</td><td>substitusi x = a + b</td></tr>
+<tr><td>4 minterm, tiap pasangan beda 1</td><td>\(\bar abc+a\bar bc+ab\bar c+abc\)</td><td>pinjam abc (x = x + x)</td></tr>
+<tr><td>⊕ di dalam bar</td><td>\(\overline{(a\oplus b)+c}\)</td><td>anggap a⊕b = X dulu</td></tr>
+</table>
+
+<anchor id="s2-recipe" />
+<h3><span class="n">4</span>Resep simplify 6 langkah</h3>
+<ol class="steps">
+<li><b>Hapus bar panjang</b> pakai De Morgan, dari bar paling luar ke dalam, sampai bar hanya di atas 1 variabel.</li>
+<li><b>Buka kurung</b> (distributive). Kalau ada 2 kurung mirip, pakai <b>rule 12</b> dulu (lebih cepat).</li>
+<li><b>Bersihkan</b>: \(aa=a\), \(a+a=a\), \(a\bar a=0\), \(x\cdot 0=0\), \(x+0=x\), \(x+1=1\).</li>
+<li><b>Factor</b> variabel yang sama → cari \((x+\bar x)=1\).</li>
+<li><b>Absorption</b> (\(a+ab=a\), \(a+\bar ab=a+b\)), lalu cek <b>consensus</b>.</li>
+<li><b>Cek</b>: masukkan 2–3 kombinasi input ke soal &amp; jawaban → harus sama. Atau cek dengan K-map.</li>
+</ol>
+<div class="warn">Tulis <b>nama hukum di setiap baris</b>. Jangan buang term duplikat terlalu cepat: kadang dibutuhkan untuk factoring (contoh majority {{p:s2-ex}}).</div>
+</div>
+</div>
+</section>

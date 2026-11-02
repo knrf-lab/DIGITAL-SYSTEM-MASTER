@@ -1,0 +1,105 @@
+<section class="t-konsep">
+<anchor id="S1" label="1 · Konsep" />
+<h2 class="sec"><span>Konsep Sistem Digital <span class="sub">· soal 1 (konseptual)</span></span><span class="tab">1</span></h2>
+
+<anchor id="s1-def" />
+<div class="two">
+<div>
+<h3><span class="n">1</span>Apa itu sistem digital?</h3>
+<p>Sistem yang memproses <b>sinyal dengan hanya 2 nilai diskrit</b>: 0 / 1 = LOW / HIGH = 0 V / 5 V. Yang dipelajari bukan lagi komponen elektronik (penguatan, <i>gain</i>, itu elektronika analog/CNE), tapi <b>logika &amp; gerbang</b>: bagaimana input diolah jadi output yang kita mau.</p>
+<p><b>Sinyal</b> = besaran fisik (tegangan) yang membawa informasi. <b>Logika</b> = arti dari sinyal itu (benar/salah, 1/0) dan aturan pengolahannya.</p>
+<p><b>Rangkaian kombinasional</b>: output hanya bergantung pada input saat ini (tanpa memori). Contoh: gerbang, decoder, adder. <b>Sekuensial</b>: punya memori (flip-flop), output juga bergantung pada keadaan sebelumnya (counter).</p>
+</div>
+<div>
+<h3><span class="n">2</span>Analog vs digital</h3>
+<table class="full small">
+<thead><tr><th></th><th>Analog</th><th>Digital</th></tr></thead>
+<tr><td>Nilai</td><td>kontinu, tak hingga</td><td>diskrit, terbatas (0/1)</td></tr>
+<tr><td>Noise</td><td>mudah terganggu</td><td>tahan noise (cukup bedakan LOW/HIGH)</td></tr>
+<tr><td>Simpan &amp; olah</td><td>sulit</td><td>mudah, akurat, bisa diprogram</td></tr>
+<tr><td>Akurasi</td><td>tergantung komponen</td><td>naik dengan menambah bit</td></tr>
+<tr><td>Contoh</td><td>suhu, suara, FM radio, vinyl</td><td>CD, HDMI, komputer, jam digital</td></tr>
+</table>
+<p class="small">Banyak sistem campuran: CD player membaca data digital → DAC → amplifier analog → speaker.</p>
+</div>
+</div>
+
+<anchor id="s1-ttl" />
+<div class="two">
+<div>
+<h3><span class="n">3</span>Level logika (TTL) &amp; pulsa</h3>
+<table class="full small">
+<tr><td><b>HIGH (1)</b></td><td>nominal 5 V · input TTL dibaca HIGH jika ≥ 2.0 V</td></tr>
+<tr><td><b>LOW (0)</b></td><td>nominal 0 V · input TTL dibaca LOW jika ≤ 0.8 V</td></tr>
+<tr><td>0.8–2.0 V</td><td><b>daerah tidak valid</b> (tidak boleh dipakai)</td></tr>
+</table>
+<ul class="small">
+<li><b>Rising edge</b> (tepi naik, <i>leading edge</i>): transisi LOW → HIGH. <b>Falling edge</b> (tepi turun, <i>trailing</i>): HIGH → LOW.</li>
+<li>Pulsa positif: LOW → HIGH → LOW. Lebar pulsa t<sub>W</sub> diukur di 50% amplitudo.</li>
+<li>Sinyal periodik: <b>periode T</b>, <b>frekuensi f = 1/T</b>, <b>duty cycle = t<sub>W</sub>/T × 100%</b>.</li>
+<li>Non-ideal: rise time (10% → 90%), fall time (90% → 10%).</li>
+</ul>
+</div>
+<div>
+<h3><span class="n">4</span>Boolean algebra: definisi</h3>
+<p>Kumpulan aturan untuk <b>menyederhanakan ekspresi logika tanpa mengubah fungsinya</b> (truth table tetap sama). Lebih sederhana = lebih sedikit gerbang → lebih murah, hemat daya, lebih cepat.</p>
+<div class="box small">
+<b>Contoh dari tutorial:</b> “Saya bawa payung <b>jika</b> hujan <b>dan</b> saya jalan kaki.”<br>
+hujan = <b>a</b>, jalan kaki = <b>b</b> (<i>variables</i>) · “dan” = <i>logic clause</i> · bawa payung = <b>y</b> (<i>result</i>)<br>
+→ \(y = a \cdot b\) (gerbang AND)
+</div>
+<p class="small">Kapan pakai apa (tips prof): <b>Boolean algebra kalau ≤ 3 variabel</b>, lebih dari itu pakai <b>K-map</b>. Boolean algebra tidak menjamin hasil paling minimal; K-map menjamin.</p>
+</div>
+</div>
+
+<anchor id="s1-wave" />
+<h3><span class="n">5</span>Timing diagram (diagram waktu)</h3>
+<div class="two">
+<div>
+<p>Menunjukkan <b>apa yang terjadi pada sinyal input &amp; output terhadap waktu</b>. Cara mengerjakan:</p>
+<ol class="steps small">
+<li>Tarik garis vertikal di setiap perubahan input → bagi jadi interval t1, t2, …</li>
+<li>Di tiap interval, baca nilai a, b (0/1) = <b>1 baris truth table</b>.</li>
+<li>Hitung output gerbang untuk baris itu, gambar levelnya.</li>
+<li>Output berubah tepat saat input berubah (gerbang ideal, tanpa delay).</li>
+</ol>
+</div>
+<div class="svgw">{{svg:wave_and}}
+<table class="tt small" style="margin-top:0"><tr><td>AND y:</td>{{inc:wave_and_bits}}</tr></table>
+<p class="small">y = 1 hanya di interval yang a = 1 <b>dan</b> b = 1.</p>
+</div>
+</div>
+</section>
+
+<section class="t-konsep">
+<anchor id="s1-gates" />
+<h2 class="sec"><span>Gerbang logika &amp; jawaban konsep siap pakai</span><span class="tab">1</span></h2>
+<table class="full gates">
+<thead><tr><th>Gerbang</th><th>Simbol</th><th>Ekspresi</th><th>00</th><th>01</th><th>10</th><th>11</th><th class="l">Output 1 kalau …</th></tr></thead>
+<tr><td>AND</td><td>{{svg:gate_and}}</td><td>\(ab\)</td><td>0</td><td>0</td><td>0</td><td>1</td><td class="l">semua input 1</td></tr>
+<tr><td>OR</td><td>{{svg:gate_or}}</td><td>\(a+b\)</td><td>0</td><td>1</td><td>1</td><td>1</td><td class="l">minimal satu input 1</td></tr>
+<tr><td>NOT</td><td>{{svg:gate_not}}</td><td>\(\bar a\)</td><td colspan="4">a = 0 → 1 · a = 1 → 0</td><td class="l">input 0 (dibalik / komplemen)</td></tr>
+<tr><td>NAND</td><td>{{svg:gate_nand}}</td><td>\(\overline{ab}\)</td><td>1</td><td>1</td><td>1</td><td>0</td><td class="l">tidak semua 1</td></tr>
+<tr><td>NOR</td><td>{{svg:gate_nor}}</td><td>\(\overline{a+b}\)</td><td>1</td><td>0</td><td>0</td><td>0</td><td class="l">semua 0</td></tr>
+<tr><td>XOR</td><td>{{svg:gate_xor}}</td><td>\(a\oplus b=\bar a b+a\bar b\)</td><td>0</td><td>1</td><td>1</td><td>0</td><td class="l">input <b>berbeda</b> (“tepat satu”)</td></tr>
+<tr><td>XNOR</td><td>{{svg:gate_xnor}}</td><td>\(\overline{a\oplus b}=ab+\bar a\bar b\)</td><td>1</td><td>0</td><td>0</td><td>1</td><td class="l">input <b>sama</b> (comparator 1-bit)</td></tr>
+</table>
+<p class="small">Representasi gerbang sebagai rumus matematika: AND = perkalian (·), OR = penjumlahan (+), NOT = komplemen (bar). <b>Bukan</b> pengurangan. Truth table dengan n input punya <b>2ⁿ baris</b> (nomor 0 … 2ⁿ − 1).</p>
+
+<anchor id="s1-qa" />
+<h3><span class="n">6</span>Jawaban konsep siap pakai</h3>
+<div class="qa"><div class="q">Apa yang dimaksud sistem digital? Apa bedanya dengan elektronika analog?</div>
+<div class="a">Sistem digital mengolah sinyal yang hanya memiliki dua keadaan diskrit, LOW (0, ≈ 0 V) dan HIGH (1, ≈ 5 V pada TTL). Fokusnya pada logika: hubungan input–output yang dinyatakan dengan gerbang, truth table, dan aljabar Boolean. Elektronika analog mengolah sinyal kontinu (mis. penguatan/gain amplifier) yang nilainya bisa berapa saja dalam suatu rentang.</div></div>
+<div class="qa"><div class="q">Sebutkan 2 kelebihan sistem digital dibanding analog.</div>
+<div class="a">(1) Tahan noise: rangkaian cukup membedakan LOW dan HIGH, jadi gangguan kecil tidak mengubah data. (2) Data mudah disimpan, diolah, dikirim, dan diprogram dengan akurat; akurasi bisa dinaikkan dengan menambah jumlah bit.</div></div>
+<div class="qa"><div class="q">Apa itu timing diagram dan apa gunanya?</div>
+<div class="a">Grafik yang menunjukkan level sinyal input dan output terhadap waktu. Gunanya melihat apa yang terjadi di dalam rangkaian saat memproses input menjadi output. Setiap interval waktu sama dengan satu baris truth table, jadi timing diagram dan truth table menyatakan hal yang sama.</div></div>
+<div class="qa"><div class="q">Apa itu rising edge dan falling edge?</div>
+<div class="a">Rising edge (tepi naik) adalah saat sinyal berubah dari LOW ke HIGH; falling edge (tepi turun) adalah saat sinyal berubah dari HIGH ke LOW. Pada pulsa positif, rising edge adalah leading edge dan falling edge adalah trailing edge.</div></div>
+<div class="qa"><div class="q">Kenapa ekspresi Boolean perlu disederhanakan?</div>
+<div class="a">Ekspresi yang lebih sederhana tetapi truth table-nya sama membutuhkan lebih sedikit gerbang dan koneksi. Hasilnya rangkaian lebih murah, lebih kecil, lebih hemat daya, dan lebih cepat (delay propagasi lebih kecil).</div></div>
+<div class="qa"><div class="q">Apa beda SOP dan POS?</div>
+<div class="a">SOP (Sum of Products) adalah OR dari beberapa suku AND, dibaca dari baris yang outputnya 1 (minterm). POS (Product of Sums) adalah AND dari beberapa suku OR, dibaca dari baris yang outputnya 0 (maxterm). Keduanya menyatakan fungsi yang sama.</div></div>
+<div class="qa"><div class="q">Hitung: sinyal clock T = 8 ms dengan t<sub>W</sub> = 2 ms.</div>
+<div class="a">f = 1/T = 1/0.008 s = <b>125 Hz</b>; duty cycle = 2/8 × 100% = <b>25%</b>.</div></div>
+</section>

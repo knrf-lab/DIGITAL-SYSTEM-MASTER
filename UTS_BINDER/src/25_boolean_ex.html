@@ -1,0 +1,33 @@
+<section class="t-bool">
+<anchor id="s2-ex" />
+<h2 class="sec"><span>Boolean Algebra: contoh langkah demi langkah</span><span class="tab">2</span></h2>
+<p class="small">Setiap baris di bawah sudah dicek komputer: truth table-nya sama dengan baris sebelumnya.</p>
+<div class="two">
+<div>
+<div class="ex"><span class="src">tutorial ex. 1</span><div class="t">A · Factor → (x + x̄) = 1</div>{{inc:d_tut1}}</div>
+<div class="ex"><span class="src">tutorial ex. 2</span><div class="t">B · Substitusi x = a + b, lalu rule 12</div>{{inc:d_tut2}}</div>
+<div class="ex"><span class="src">catatan tutor</span><div class="t">C · Factor sederhana</div>{{inc:d_notes}}</div>
+<div class="ex"><span class="src">PR4 no. 5 · “got talent”</span><div class="t">D · Majority: pinjam term yang sama</div>{{inc:d_major}}
+<p class="small">abc boleh ditulis 3× karena x + x = x. Tiap salinan dipasangkan dengan satu minterm lain.</p></div>
+</div>
+<div>
+<div class="ex"><span class="src">PR4 no. 11</span><div class="t">E · De Morgan bertingkat (dari bar terluar)</div>{{inc:d_dm}}</div>
+<div class="ex"><span class="src">PR4 no. 14</span><div class="t">F · Consensus (dibuktikan)</div>{{inc:d_cons}}
+<p class="small">Di ujian boleh langsung: “by consensus theorem, bcd redundant”. Polanya: ada \(ab\) dan \(\bar a cd\) → gabungan sisanya \(b\cdot cd\) bisa dihapus.</p></div>
+<div class="ex"><span class="src">PR4 no. 18</span><div class="t">G · XOR di dalam bar</div>{{inc:d_xor}}
+<p class="small">Perlakukan (a⊕b) sebagai satu variabel X: soalnya jadi \(\overline{\bar X + c} + X\bar c\).</p></div>
+<div class="tip">Kunci jawaban 35 soal PR Pert. 4 sudah dicek ulang dengan komputer: hasil di cheat sheet teman semuanya benar. Bentuk berbeda tapi truth table sama = tetap benar.</div>
+</div>
+</div>
+</section>
+
+<section class="t-bool">
+<anchor id="s2-27" />
+<h2 class="sec"><span>27 identitas (lembar latihan): jawaban + hukum</span><span class="tab">2</span></h2>
+<p class="small">No. 11–13: \(f(a,b,c) = a + b + c\), jadi ganti c dengan argumen ketiga lalu sederhanakan. Contoh: \(f(a,b,\bar a b) = a + b + \bar a b\).</p>
+{{inc:ws27}}
+<div class="two">
+<div class="warn">No. 21 vs 22: \(\overline{\bar x + \bar x} = \bar{\bar x} = x\) (karena \(\bar x+\bar x=\bar x\)), tetapi \(\overline{x + \bar x} = \bar 1 = 0\). Beda tipis!</div>
+<div class="warn">\(\overline{ab} \ne \bar a\,\bar b\). Bar panjang ≠ bar pendek. Cek dengan a = 1, b = 0: \(\overline{ab} = 1\), tapi \(\bar a\bar b = 0\).</div>
+</div>
+</section>

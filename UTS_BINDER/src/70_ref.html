@@ -1,0 +1,50 @@
+<section class="t-ref">
+<anchor id="SR" label="R · Referensi" />
+<anchor id="s5-num" />
+<h2 class="sec"><span>Referensi: sistem bilangan, 2's complement, PLD/VHDL singkat</span><span class="tab">R</span></h2>
+<div class="two">
+<div>
+<h3>Konversi bilangan (PR Pert. 2)</h3>
+<ul class="small">
+<li><b>Desimal → biner</b>: bagi 2 berulang, baca sisa dari <b>bawah ke atas</b>.</li>
+<li><b>Biner → oktal</b>: kelompok <b>3 bit</b> dari kanan. <b>Biner → heksa</b>: kelompok <b>4 bit</b>.</li>
+<li><b>Ke desimal</b>: kalikan tiap digit dengan bobotnya (2ⁿ, 8ⁿ, 16ⁿ).</li>
+</ul>
+<div class="box small"><b>Contoh 859:</b><br><span class="mono">{{inc:div859}}</span><br>→ {{inc:num859}}<br>
+cek oktal: 1 101 011 011 → 1 5 3 3 · heksa: 11 0101 1011 → 3 5 B</div>
+<table class="full small mono"><thead><tr><th>2ⁿ</th><th>0</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th></tr></thead>
+<tr><td>nilai</td><td>1</td><td>2</td><td>4</td><td>8</td><td>16</td><td>32</td><td>64</td><td>128</td><td>256</td><td>512</td><td>1024</td></tr></table>
+<table class="full small mono"><thead><tr><th>hex</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr></thead>
+<tr><td>dec</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td></tr><tr><td>bin</td><td>1010</td><td>1011</td><td>1100</td><td>1101</td><td>1110</td><td>1111</td></tr></table>
+<h3>Penjumlahan &amp; 2's complement</h3>
+<p class="small">0+0 = 0 · 0+1 = 1 · 1+1 = 10 (tulis 0, carry 1) · 1+1+1 = 11.<br>{{inc:add_ex}}</p>
+<p class="small"><b>A − B</b>: (1) 1's complement B = balik semua bit · (2) +1 = 2's complement · (3) A + 2's(B) · (4) ada carry keluar → buang, hasil positif. Tidak ada carry → hasil negatif (ambil 2's complement-nya lagi, beri tanda −).</p>
+{{inc:tc_ex}}
+<p class="small">“Berikan pembuktian desimal” = tulis nilai desimal tiap bilangan dan hasilnya, seperti kolom kanan.</p>
+</div>
+<div>
+<h3>BCD &amp; Gray</h3>
+<ul class="small">
+<li><b>BCD (8421)</b>: tiap digit desimal → 4 bit. 1010–1111 tidak dipakai. 859 = 1000 0101 1001.</li>
+<li><b>Gray code</b>: angka berurutan hanya beda 1 bit (00, 01, 11, 10, …). Ini sebabnya header K-map memakai Gray.</li>
+</ul>
+<h3>Gerbang universal (NAND / NOR)</h3>
+<table class="full small"><thead><tr><th>Buat</th><th>NAND saja</th><th>NOR saja</th></tr></thead>
+<tr><td>NOT</td><td>\(\overline{aa}=\bar a\)</td><td>\(\overline{a+a}=\bar a\)</td></tr>
+<tr><td>AND</td><td>NAND lalu NOT</td><td>\(\overline{\bar a+\bar b}=ab\)</td></tr>
+<tr><td>OR</td><td>\(\overline{\bar a\,\bar b}=a+b\)</td><td>NOR lalu NOT</td></tr></table>
+<h3>Comparator, adder, decoder (1 baris)</h3>
+<ul class="small">
+<li>Sama 1-bit: XNOR. Sama 4-bit: AND dari 4 XNOR.</li>
+<li>Half adder: S = a⊕b, C = ab. Full adder: S = a⊕b⊕c<sub>in</sub>, C<sub>out</sub> = ab + c<sub>in</sub>(a⊕b).</li>
+<li>Decoder: 1 output aktif untuk tiap kombinasi input (n → 2ⁿ). 74LS47 = BCD → 7-seg, active-LOW (common anode).</li>
+</ul>
+<h3>PLD / VHDL (kalau keluar)</h3>
+<ul class="small">
+<li><b>PLD</b> = IC berisi banyak gerbang yang <b>dikonfigurasi user lewat software</b>. SPLD (PAL: AND array programmable + OR tetap, OTP; GAL: bisa diprogram ulang) · CPLD (beberapa SPLD/LAB + interkoneksi PIA) · FPGA (banyak CLB berisi LUT + flip-flop).</li>
+<li><b>Design flow</b>: design entry (schematic/HDL) → functional simulation → synthesis (netlist) → implementation (fit/place &amp; route) → timing simulation → device programming.</li>
+<li><b>VHDL</b>: <span class="mono">entity</span> = port input/output; <span class="mono">architecture</span> = perilaku/struktur. Signal <span class="mono">&lt;=</span>, variable <span class="mono">:=</span>. <span class="mono">component</span> + <span class="mono">port map</span> = menyambung modul (seperti lab Ch. 5 &amp; 7).</li>
+</ul>
+</div>
+</div>
+</section>
