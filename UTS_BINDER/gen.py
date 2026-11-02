@@ -533,6 +533,7 @@ a8, b8 = [0, 0, 1, 1, 0, 1, 0, 1], [0, 1, 0, 1, 1, 1, 0, 0]
 and8 = [x & y for x, y in zip(a8, b8)]
 waveform("wave_and", [("a", a8), ("b", b8), ("y", and8)], hl=2)
 out("wave_and_bits", "".join(f"<td>{v}</td>" for v in and8))
+out("wave_and_bits_txt", " ".join(map(str, and8)))
 
 # ---------------- Tab 2: Boolean derivations (all verified)
 deriv("d_tut1", [
@@ -785,67 +786,27 @@ check(s_ & (2 ** nb - 1) == A - B == 11 and s_ >> nb == 1, "2's complement examp
 check(A + B == 531, "add example")
 out("add_ex", f"<span class='mono'>{A:09b} + {B:09b} = {A + B:b}</span> → {A} + {B} = {A + B} ✔")
 
-# ---------------- Mock exam (answers recomputed)
-# Q1 timing: a, b given; NAND and XOR
-ma = [0, 1, 1, 0, 1, 0, 1, 1]
-mb = [0, 0, 1, 1, 1, 0, 0, 1]
-mnand = [1 - (x & y) for x, y in zip(ma, mb)]
-mxor = [x ^ y for x, y in zip(ma, mb)]
-waveform("mock_wave_q", [("a", ma), ("b", mb)])
-waveform("mock_wave_nand", [("a", ma), ("b", mb), ("nand", mnand)], hl=2)
-waveform("mock_wave_xor", [("a", ma), ("b", mb), ("xor", mxor)], hl=2)
-out("mock_nand_bits", " ".join(map(str, mnand)))
-out("mock_xor_bits", " ".join(map(str, mxor)))
-check(mnand == [1, 1, 0, 1, 0, 1, 1, 0] and mxor == [0, 1, 0, 1, 0, 0, 1, 0], "mock timing")
-
-# Q2: 3-bit binary (0-7) to common-cathode 7-seg, segments a and g
-N3u = list("ABC")
-q2a = {d for d in range(8) if SEG[d][0] == "1"}
-q2g = {d for d in range(8) if SEG[d][6] == "1"}
-check(q2a == {0, 2, 3, 5, 6, 7} and q2g == {2, 3, 4, 5, 6}, "mock Q2 sets")
-out("mock_q2_tt", truth_table(N3u, [("a", [int(m in q2a) for m in range(8)]), ("g", [int(m in q2g) for m in range(8)])]))
-out("mock_q2_a", kmap(N3u, q2a, groups=["B", "AC", "A'C'"], small=True, title="segment a"))
-out("mock_q2_g", kmap(N3u, q2g, groups=["A'B", "AB'", "BC'"], small=True, title="segment g"))
-out("mock_q2_res", f"\\(a = {result(N3u, q2a, set(), ['B', 'AC', 'A' + chr(39) + 'C' + chr(39)])}\\) &nbsp;&nbsp; "
-                   f"\\(g = {result(N3u, q2g, set(), ['A' + chr(39) + 'B', 'AB' + chr(39), 'BC' + chr(39)])}\\)")
-out("mock_q2_apos", kmap(N3u, q2a, groups=["A'B'C", "AB'C'"], mode="pos", small=True, title="a: group 0s"))
-result(N3u, q2a, set(), ["A'B'C", "AB'C'"], "pos")
-
-# Q3 simplifications
-deriv("mk3a", [
-    ("(a + b)(a' + c)(b + c)", "soal"),
-    ("(a + b)(a' + c)", "consensus (dual): (b + c) redundant"),
-    ("aa' + ac + a'b + bc", "atau buka kurung: distributive"),
-    ("ac + a'b", "aā = 0, lalu consensus: bc hilang"),
-])
-deriv("mk3b", [
-    ("(a'b' + c)' + a'b", "soal"),
-    ("(a'b')'.c' + a'b", "De Morgan: (X + Y)′ = X̄Ȳ"),
-    ("(a + b)c' + a'b", "De Morgan: (āb̄)′ = a + b"),
-    ("ac' + bc' + a'b", "distributive"),
-    ("ac' + a'b", "consensus: bc̄ (dari ac̄ & āb) redundant"),
-])
-deriv("mk3c", [
-    ("abc + ab'c + abc' + a'b'c", "soal"),
-    ("ab(c + c') + b'c(a + a')", "factor (pasangkan abc–abc̄, ab̄c–āb̄c)"),
-    ("ab + b'c", "x + x̄ = 1"),
-])
-# Q4: four judges, a = ketua juri
-def judge(a, b, c, d):
-    k = a + b + c + d
-    return int(k >= 3 or (k == 2 and a == 1))
-
-
-q4 = {m for m in range(16) if judge(m >> 3 & 1, m >> 2 & 1, m >> 1 & 1, m & 1)}
-check(q4 == {7, 9, 10, 11, 12, 13, 14, 15}, "mock Q4 minterms")
-out("mock_q4_tt", truth_table(N4, [("y", [int(m in q4) for m in range(16)])]))
-out("mock_q4_sop", kmap(N4, q4, groups=["ab", "ac", "ad", "bcd"], small=True, title="SOP"))
-out("mock_q4_pos", kmap(N4, q4, groups=["a'b'", "a'c'", "a'd'", "b'c'd'"], mode="pos", small=True, title="POS"))
-out("mock_q4_res", f"\\(y = {result(N4, q4, set(), ['ab', 'ac', 'ad', 'bcd'])}\\) &nbsp;|&nbsp; "
-                   f"\\(y = {result(N4, q4, set(), ['a' + chr(39) + 'b' + chr(39), 'a' + chr(39) + 'c' + chr(39), 'a' + chr(39) + 'd' + chr(39), 'b' + chr(39) + 'c' + chr(39) + 'd' + chr(39)], 'pos')}\\)")
-sop_circuit("c_mock4", N4, ["ab", "ac", "ad", "bcd"])
-s4, p4 = canon(N4, q4)
-out("mock_q4_canon", f"\\(\\Sigma m(7,9,10,11,12,13,14,15)\\) = \\(\\Pi M(0,1,2,3,4,5,6,8)\\)")
-check(set(range(16)) - q4 == {0, 1, 2, 3, 4, 5, 6, 8}, "mock Q4 maxterms")
+# ---------------- mini examples (side squares): every number recomputed
+def tc(v, n=8):
+    return ((~v) & (2 ** n - 1)) + 1 & (2 ** n - 1)
+def signed(v, n=8):
+    return v - 2 ** n if v >> (n - 1) else v
+check(signed(0b11000110) == -58, "signed read")
+check((0b00010110 + 0b00110011) == 0b01001001 == 73, "signed add")
+r = 0b01110000 + 0b10101111
+check(r == 0b100011111 and (r & 255) == 31 and signed(0b10101111) == -81, "112 + (-81)")
+check(tc(0b11001010) == 0b00110110, "2's comp")
+check(int("3702", 8) == 1986 and int("1A2F", 16) == 6703, "to decimal")
+g = 0b1011 ^ (0b1011 >> 1)
+check(g == 0b1110, "gray")
+check(bin(0b1000001).count("1") % 2 == 0, "parity A")  # two 1s -> odd parity bit = 1
+check(1 / 3.2e9 == 312.5e-12 or abs(1 / 3.2e9 - 312.5e-12) < 1e-18, "3.2 GHz")
+check(round(20000 * 0.040) == 800, "pulse count")
+a_, b_, ci = 1, 0, 1
+check((a_ ^ b_ ^ ci, (a_ & b_) | (ci & (a_ ^ b_))) == (0, 1), "full adder")
+check(sum(int(c) for c in "0101") == 2 and int("1000" "0101" "1001", 2) != 859, "bcd sanity")
+check(f"{8:04b}{5:04b}{9:04b}" == "100001011001", "BCD 859")
+check(minterms("a'b + ab'", ["a", "b"]) == {1, 2}, "PAL XOR")
+check(minterms("ab + c'd", list("abcd")) == {m for m in range(16) if ((m >> 3 & 1) and (m >> 2 & 1)) or ((m >> 1 & 1) == 0 and m & 1)}, "AOI")
 
 print(f"gen.py: all {CHECKS} checks passed")

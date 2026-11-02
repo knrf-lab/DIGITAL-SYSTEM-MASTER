@@ -1,46 +1,34 @@
-<section class="t-trap">
+<section class="t-bool">
+<anchor id="s2-27" label="2 · Boolean (27 identitas)" />
+<h2 class="sec"><span>27 identitas (lembar latihan): jawaban + hukum</span><span class="tab">2</span></h2>
+<p class="small">No. 11–13: \(f(a,b,c)=a+b+c\), ganti c dengan argumen ketiga, lalu sederhanakan. No. 21 vs 22: \(\overline{\bar x+\bar x}=x\), tapi \(\overline{x+\bar x}=\bar 1=0\).</p>
+{{inc:ws27}}
+</section>
+
+<section class="t-trap cont">
 <anchor id="SX" label="X · Jebakan" />
-<h2 class="sec"><span>Jebakan: dari papan tulis, catatan, PR, dan kesalahan umum</span><span class="tab">X</span></h2>
-<h3>Salah di catatan / papan tulis → yang benar</h3>
-<table class="full">
+<h2 class="sec"><span>Jebakan: papan tulis, catatan, PR, kesalahan umum</span><span class="tab">X</span></h2>
+<table class="full small">
 <thead><tr><th>Sumber</th><th>Tertulis</th><th>Yang benar</th></tr></thead>
-<tr><td>catatan teman</td><td>NOT = pengurangan (−)</td><td>NOT = <b>komplemen</b> (dibalik). Boolean tidak punya pengurangan.</td></tr>
-<tr><td>catatan teman</td><td>NOT rule: A = Ā</td><td>\(\bar{\bar A} = A\) (double negation)</td></tr>
-<tr><td>catatan sendiri</td><td>judul “commutative” di atas \(a(bc)=(ab)c\)</td><td>itu <b>associative</b>; commutative = \(ab=ba\)</td></tr>
-<tr><td>catatan sendiri</td><td>Σ(a,b,c) = Σ(3,5,6,7)</td><td>\(y(a,b,c) = \Sigma m(3,5,6,7)\)</td></tr>
-<tr><td>papan tulis</td><td>kombinasi input 2ⁿ⁻¹</td><td>truth table punya <b>2ⁿ baris</b>, nomor 0 … 2ⁿ − 1</td></tr>
-<tr><td>papan, 7-seg</td><td>segmen c = (a + b̄ + c + d)</td><td>angka 2 = 0010 → \((A + B + \bar C + D)\); minimal \(c = B + \bar C + D\)</td></tr>
-<tr><td>papan, 7-seg</td><td>input “d c b a” + segmen a–g</td><td>huruf bentrok: input A B C D (A = MSB), segmen a–g</td></tr>
-<tr><td>papan, 7-seg</td><td>segmen b = a + b̄ + cd + c̄d̄</td><td>benar, tapi “a” tidak perlu: minimal \(b = \bar B + \bar C\bar D + CD\)</td></tr>
-<tr><td>PR5 soal</td><td>F6, F7, F16, F17, F26, F27 ditulis “ΣM(…)”</td><td>maksudnya <b>ΠM</b>: angka = baris yang 0; Σm = sisa indeksnya</td></tr>
-<tr><td>papan, “ex 5 K-map”</td><td>bukan K-map 5 variabel</td><td>“contoh nomor 5”. K-map 5 variabel tetap ada di PR5 F21–F30 ({{p:s3-dc}})</td></tr>
+<tr><td>catatan teman</td><td>NOT = pengurangan · NOT rule A = Ā</td><td>NOT = komplemen · \(\bar{\bar A}=A\)</td></tr>
+<tr><td>catatan sendiri</td><td>“commutative” di atas \(a(bc)=(ab)c\) · Σ(a,b,c)</td><td>itu associative · \(y(a,b,c)=\Sigma m(…)\)</td></tr>
+<tr><td>papan tulis</td><td>kombinasi input 2ⁿ⁻¹</td><td>2ⁿ baris, nomor 0 … 2ⁿ − 1</td></tr>
+<tr><td>papan, 7-seg</td><td>segmen c = (a + b̄ + c + d) · input “d c b a” + segmen a–g</td><td>\((A+B+\bar C+D)\), minimal \(B+\bar C+D\) · input A B C D, segmen a–g</td></tr>
+<tr><td>PR5 soal</td><td>F6, F7, F16, F17, F26, F27 “ΣM(…)”</td><td>maksudnya <b>ΠM</b> (angka = baris 0)</td></tr>
 </table>
-<div class="two">
-<div>
-<h3>Boolean algebra</h3>
+<div class="two small">
 <ul>
-<li>1 + 1 = <b>1</b> (bukan 2). \(a\cdot a = a\) (bukan a²). \(a + a = a\) (bukan 2a).</li>
-<li>\(\overline{ab} \ne \bar a\bar b\). \(\overline{a+b} \ne \bar a + \bar b\). Bar panjang ≠ bar pendek.</li>
-<li>\(a + bc = (a+b)(a+c)\) itu <b>benar</b> di Boolean (tidak di aljabar biasa).</li>
-<li>Urutan: NOT → AND → OR. \(a+bc\) = \(a+(bc)\), bukan \((a+b)c\).</li>
-<li>De Morgan dikerjakan dari bar <b>paling luar</b>.</li>
-<li>Boleh menulis term yang sama 2× (x = x + x) untuk factoring.</li>
-<li>Bentuk jawaban beda dari kunci tapi truth table sama = <b>tetap benar</b>.</li>
+<li>1 + 1 = <b>1</b> · \(a\cdot a=a\) · \(a+a=a\).</li>
+<li>\(\overline{ab}\ne\bar a\bar b\) · \(\overline{a+b}\ne\bar a+\bar b\). De Morgan dari bar <b>terluar</b>.</li>
+<li>\(a+bc=(a+b)(a+c)\) <b>benar</b> di Boolean. \(a+bc\) = \(a+(bc)\).</li>
+<li>Term boleh ditulis 2× (x = x + x) untuk factoring.</li>
+<li>Beda bentuk tapi truth table sama = <b>tetap benar</b>.</li>
 </ul>
-</div>
-<div>
-<h3>K-map &amp; soal cerita</h3>
 <ul>
-<li>Header Gray code <b>00 01 11 10</b>; kolom ke-3 = 11.</li>
-<li>4 pojok = 1 grup; kiri–kanan dan atas–bawah bersambung.</li>
-<li>Grup 3 atau 6 sel <b>tidak boleh</b>.</li>
-<li>X tidak wajib ditutup; jangan buat grup isinya X saja.</li>
-<li>POS: group <b>0</b>, bacanya terbalik (0 → a, 1 → ā).</li>
-<li>Jangan lupa baris pengecualian (“kecuali”, “provided”, “never both”).</li>
-<li>“Tepat satu” → XOR; “minimal dua” → ≥ 2; “mayoritas” dari 4 = ≥ 3.</li>
-<li>Tulis arti 1/0 tiap variabel sebelum truth table.</li>
-<li>7-seg: CC 1 = nyala, CA 0 = nyala. Cek tabel soal: angka 6 &amp; 9 pakai ekor atau tidak.</li>
+<li>Header Gray <b>00 01 11 10</b> · 4 pojok = 1 grup · grup 3/6 sel tidak boleh.</li>
+<li>X tidak wajib ditutup · POS: group 0, baca terbalik.</li>
+<li>Baris pengecualian (“kecuali”, “never both”) · “tepat satu” = XOR · mayoritas dari 4 = ≥ 3.</li>
+<li>7-seg: CC 1 = nyala, CA 0 = nyala · cek “ekor” angka 6 dan 9.</li>
 </ul>
-</div>
 </div>
 </section>
