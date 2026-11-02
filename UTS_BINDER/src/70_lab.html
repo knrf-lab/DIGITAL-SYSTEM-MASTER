@@ -1,0 +1,109 @@
+<section class="t-ref">
+<anchor id="SL" label="L · Kombinasional + PLD" />
+<h2 class="sec"><span>Fungsi kombinasional &amp; Programmable Logic Device <span class="sub">· sesi 6–7, 12–14</span></span><span class="tab">L</span></h2>
+<div class="ms">
+<div>
+<h3><span class="n">1</span>Rangkaian kombinasional</h3>
+<p class="small"><b>Analisis rangkaian</b>: tulis ekspresi di output tiap gerbang dari input ke output → gabung → sederhanakan → truth table. <b>Pulse waveform</b>: kerjakan interval demi interval. <b>AND–OR</b> = SOP langsung; <b>AOI</b> (AND-OR-Invert) = \(\overline{ab+cd}\).</p>
+<table class="full small">
+<thead><tr><th></th><th>Sum</th><th>Carry</th><th>Catatan</th></tr></thead>
+<tr><td>Half adder</td><td>\(a\oplus b\)</td><td>\(ab\)</td><td>2 input</td></tr>
+<tr><td>Full adder</td><td>\(a\oplus b\oplus c_{in}\)</td><td>\(ab+c_{in}(a\oplus b)\)</td><td>= 2 half adder + 1 OR</td></tr>
+</table>
+<ul class="small">
+<li><b>Parallel adder</b>: n full adder berantai. <b>Ripple carry</b>: tiap tahap menunggu carry sebelumnya (lambat). <b>Look-ahead</b>: carry dihitung langsung; generate \(C_g=ab\), propagate \(C_p=a+b\), \(C_{out}=C_g+C_pC_{in}\). 74LS283 = 4-bit adder look-ahead.</li>
+<li><b>Comparator</b>: sama 1-bit = XNOR; 4-bit = AND dari 4 XNOR. Magnitude comparator (74LS85): A&gt;B, A=B, A&lt;B, cek dari MSB; cascade lewat input A=B.</li>
+<li><b>Decoder</b>: mendeteksi 1 kombinasi input (n → 2ⁿ output). 74LS138 = 3-to-8 (3 enable), 74HC154 = 4-to-16, 74HC42 = BCD-to-decimal, 74LS47 = BCD-to-7-seg active-LOW.</li>
+</ul>
+
+<anchor id="s6-pld" />
+<h3><span class="n">2</span>PLD: Programmable Logic Device</h3>
+<p class="small">IC berisi banyak gerbang (dan flip-flop) yang <b>dikonfigurasi user dengan software</b>. Keuntungan: board lebih sederhana, daya &amp; ruang lebih kecil, testing lebih mudah, reliabel, fleksibel.</p>
+<table class="full small">
+<thead><tr><th>Tipe</th><th>Isi</th><th>Catatan</th></tr></thead>
+<tr><td><b>SPLD</b>: PAL</td><td>AND array <b>programmable</b> → OR tetap</td><td><b>OTP</b>: fuse diputus permanen</td></tr>
+<tr><td><b>SPLD</b>: GAL</td><td>sama seperti PAL + macrocell</td><td><b>reprogrammable</b> (EEPROM), Lattice, 3.3 / 5 V, untuk prototipe</td></tr>
+<tr><td><b>CPLD</b></td><td>beberapa <b>LAB</b> (= SPLD) + <b>PIA</b> (interkoneksi)</td><td>Altera MAX 7000: macrocell maks 5 product term (lebih → expander)</td></tr>
+<tr><td><b>FPGA</b></td><td>banyak <b>CLB</b> dalam baris/kolom; logic module = <b>LUT</b> + flip-flop + MUX</td><td>kapasitas besar; local + global interconnect; <b>hard core</b> = blok tetap dari pabrik</td></tr>
+</table>
+<p class="small"><b>Macrocell</b> = logika output di setiap OR gate: tristate (pin bisa I/O), polaritas output, flip-flop → <b>registered output</b> (sekuensial). Array: tiap input punya garis true &amp; complement; <b>fuse utuh = terhubung (X)</b>, fuse putus = lepas. PAL16V8: 16 input, 8 output. Nexys A7 di lab = FPGA Xilinx Artix-7.</p>
+</div>
+<div class="side">
+<div class="sq"><b>Half adder Σ = 0, C = 1?</b><br>a = 1, b = 1</div>
+<div class="sq"><b>Full adder 1 + 0 + c<sub>in</sub> 1</b><br>Σ = 1⊕0⊕1 = <b>0</b>, C<sub>out</sub> = <b>1</b></div>
+<div class="sq"><b>Uji 2 bilangan 4-bit sama?</b><br>XNOR tiap pasangan bit → AND ke-4 output</div>
+<div class="sq"><b>Decoder deteksi 0011</b><br>AND dari \(\bar A_3\bar A_2A_1A_0\) (active-HIGH) atau NAND (active-LOW)</div>
+<div class="sq"><b>PAL: fuse utuh ke \(A\bar B\) dan \(\bar AB\), di-OR</b><br>→ X = \(A\bar B+\bar AB\) = <b>XOR</b></div>
+<div class="sq"><b>PAL vs GAL?</b><br>PAL sekali program (fuse); GAL bisa diprogram ulang</div>
+<div class="sq"><b>CPLD vs FPGA?</b><br>CPLD: sedikit blok AND–OR besar, delay terprediksi · FPGA: banyak LUT kecil, kapasitas besar</div>
+<div class="sq"><b>Ekspresi butuh 7 product term di MAX 7000?</b><br>Macrocell hanya 5 → pakai <b>expander</b></div>
+<div class="sq"><b>LUT?</b><br>Look-up table: menyimpan truth table fungsi; inti logic module FPGA</div>
+</div>
+</div>
+</section>
+
+<section class="t-ref">
+<anchor id="s6-flow" />
+<h2 class="sec"><span>Design flow, modeling, VHDL <span class="sub">· sesi 6–9 + lab</span></span><span class="tab">L</span></h2>
+<div class="flow">
+<div><b>1 Design entry</b>schematic atau HDL (VHDL/Verilog)</div>
+<div><b>2 Functional sim.</b>cek logika dengan waveform, tanpa delay</div>
+<div><b>3 Synthesis</b>optimasi, buang term redundan → <b>netlist</b></div>
+<div><b>4 Implementation</b>map/fit ke device, pin I/O, place &amp; route</div>
+<div><b>5 Timing sim.</b>pakai delay nyata device</div>
+<div><b>6 Programming</b>download bitstream, uji di board</div>
+</div>
+<p class="small"><b>Boundary scan</b> (JTAG, IEEE 1149.1): register uji internal untuk menguji interkoneksi &amp; logika <b>tanpa akses fisik</b>. Di lab: Vivado → Run Simulation → Generate Bitstream → Hardware Manager → Program Device. File <span class="mono">.xdc</span> = constraint pin (mis. <span class="mono">PACKAGE_PIN E3</span> = clock 100 MHz).</p>
+
+<h3><span class="n">3</span>Konsep modeling</h3>
+<ul class="small cols2">
+<li><b>Tujuan</b>: simulasi &amp; sintesis. <b>Representasi</b>: structural, behavioral, physical. <b>Abstraksi</b>: functional → RTL → logic → circuit → physical.</li>
+<li><b>Simulation</b> = memodelkan rangkaian untuk meniru perilakunya. <b>Synthesis</b> = membangkitkan hardware dari model; inputnya model VHDL + constraint + target primitive; ia meng-<b>infer</b> komponen &amp; optimasi ukuran/kecepatan.</li>
+<li><b>Signal</b>: punya riwayat nilai terhadap waktu; berubah <b>bersamaan (concurrent)</b>. <b>Event</b> = perubahan nilai pada suatu waktu; output tertunda propagation delay.</li>
+<li><b>Inertial delay</b> (default): perubahan input harus bertahan cukup lama, glitch pendek diabaikan (<span class="mono">OUT1 &lt;= IN1 after 8 ns;</span>). <b>Transport delay</b>: delay kabel, semua pulsa lewat (<span class="mono">sum &lt;= transport s1 after 4 ns;</span>).</li>
+<li><b>Testbench</b>: entity kosong (tanpa port) berisi DUT + stimulus; error/warning ke console atau log.</li>
+</ul>
+
+<anchor id="s6-vhdl" />
+<h3><span class="n">4</span>VHDL essentials</h3>
+<div class="two">
+<div>
+<pre class="code">entity HALFADDER is
+  port( A, B       : in  std_logic;
+        SUM, CARRY : out std_logic );
+end HALFADDER;
+architecture RTL of HALFADDER is
+begin
+  SUM   &lt;= A xor B;   -- concurrent
+  CARRY &lt;= A and B;
+end RTL;</pre>
+<p class="small"><b>Entity</b> = port input/output. <b>Architecture</b> = hubungan/perilaku. Case-insensitive · komentar <span class="mono">--</span> · akhir statement <span class="mono">;</span> · signal <span class="mono">&lt;=</span> · variable <span class="mono">:=</span> · identifier mulai huruf, tidak berakhir <span class="mono">_</span>.</p>
+<pre class="code">-- lab Ch.6+7: komponen + port map
+CLK_DIV: Clock_and_Timing port map (
+   source_Clk =&gt; CLK100MHZ, output =&gt; slow_clk);
+COUNTER: Four_bit_Counter port map (
+   Rst =&gt; Rst, Clk =&gt; slow_clk, output =&gt; output);</pre>
+</div>
+<div>
+<table class="full small">
+<tr><td><b>Concurrent</b> (di architecture)</td><td><span class="mono">&lt;=</span>, <span class="mono">when … else</span>, <span class="mono">with … select</span>, instance komponen; semua paralel</td></tr>
+<tr><td><b>Sequential</b> (di process)</td><td><span class="mono">if/elsif/else</span>, <span class="mono">case</span>, <span class="mono">for/while loop</span>; urut atas → bawah</td></tr>
+<tr><td><b>Process</b></td><td>di dalam architecture, jalan ulang saat signal di <b>sensitivity list</b> berubah; antar process paralel</td></tr>
+<tr><td><b>Signal vs variable</b></td><td>signal update saat process berhenti (assignment terakhir menang); variable langsung, lokal di process</td></tr>
+<tr><td><b>std_logic</b></td><td>U X 0 1 Z W L H - (Z = high-impedance, - = don't care)</td></tr>
+<tr><td><b>Tipe lain</b></td><td>bit, bit_vector, integer, boolean, time, enumerated (<span class="mono">type STATE is (…)</span>), array, physical (units)</td></tr>
+<tr><td><b>Operator</b></td><td>and or nand nor xor xnor · = /= &lt; &gt; · sll srl rol · + − &amp; (concat) · * / mod rem · not abs **</td></tr>
+</table>
+<pre class="code">with SEL select              -- 4-to-1 MUX
+  Y &lt;= A when "00", B when "01",
+       C when "10", D when others;</pre>
+</div>
+</div>
+<div class="strip"><div class="sq"><b>Netlist?</b> daftar koneksi lengkap rangkaian, hasil synthesis</div>
+<div class="sq"><b>Functional vs timing sim.?</b> functional: logika saja · timing: + delay nyata device</div>
+<div class="sq"><b>Simulation vs synthesis?</b> meniru perilaku vs membuat hardware</div>
+<div class="sq"><b>Signal vs variable</b><br><span class="mono">SIG &lt;= A; X &lt;= not SIG; SIG &lt;= B;</span> → X pakai SIG <b>lama</b>; variable: langsung nilai baru</div>
+<div class="sq"><b>Inertial 8 ns, pulsa input 5 ns?</b> diabaikan (terlalu pendek). Transport: tetap lewat, tertunda</div>
+<div class="sq"><b>Testbench punya port?</b> Tidak: entity kosong berisi DUT + stimulus</div>
+</div>
+</section>

@@ -1,0 +1,86 @@
+<section class="t-kmap">
+<anchor id="S3" label="3 · K-map & soal cerita" />
+<anchor id="s3-mm" />
+<h2 class="sec"><span>SOP / POS, minterm / maxterm, K-map <span class="sub">· soal 4</span></span><span class="tab">3</span></h2>
+<div class="two">
+<div>
+<h3><span class="n">1</span>Minterm vs maxterm</h3>
+<table class="full">
+<thead><tr><th></th><th>Minterm → SOP (Σm)</th><th>Maxterm → POS (ΠM)</th></tr></thead>
+<tr><td>Ambil baris</td><td>y = <b>1</b></td><td>y = <b>0</b></td></tr>
+<tr><td>Bit 0 → tulis</td><td>\(\bar a\) (pakai bar)</td><td>\(a\) (biasa)</td></tr>
+<tr><td>Bit 1 → tulis</td><td>\(a\) (biasa)</td><td>\(\bar a\) (pakai bar)</td></tr>
+<tr><td>Digabung dengan</td><td>AND dalam term, OR antar term</td><td>OR dalam term, AND antar term</td></tr>
+<tr><td>Baris 011</td><td>\(m_3=\bar a b c\)</td><td>\(M_3=(a+\bar b+\bar c)\)</td></tr>
+<tr><td>Baris 100</td><td>\(m_4=a\bar b\bar c\)</td><td>\(M_4=(\bar a+b+c)\)</td></tr>
+</table>
+<ul class="small">
+<li>\(\Sigma m\) dan \(\Pi M\) <b>saling melengkapi</b>: \(\Sigma m(3,5,6,7) = \Pi M(0,1,2,4)\) (indeks yang tidak ada di Σ pasti ada di Π).</li>
+<li>Minterm bernilai 1 hanya di barisnya sendiri; maxterm bernilai 0 hanya di barisnya sendiri.</li>
+<li>Bentuk kanonik (semua variabel di tiap term) <b>belum tentu paling sederhana</b>, jadi lanjut ke K-map.</li>
+<li>SOP → rangkaian AND–OR; POS → OR–AND. Bentuk SOP/POS: bar hanya boleh di atas 1 variabel.</li>
+<li>“Define algebraic / minterm / maxterm form” (PR5): algebraic = persamaan asli; minterm form = Σm(…); maxterm form = ΠM(…).</li>
+</ul>
+<anchor id="s3-tpl" />
+<h3><span class="n">2</span>Template K-map (angka kecil = nomor minterm)</h3>
+<div class="row">{{inc:tpl2}}{{inc:tpl3}}</div>
+{{inc:tpl4}}
+<h4>Contoh papan tulis: {{inc:k4_board_res}}</h4>
+{{inc:k4_board}}
+</div>
+<div>
+<div class="warn">Urutan header pakai <b>Gray code: 00, 01, 11, 10</b>, bukan 00, 01, 10, 11. Maka kolom ke-3 berisi m3 (bukan m2). Sel bersebelahan hanya beda 1 bit.</div>
+<h3><span class="n">3</span>Aturan grouping (SOP = group angka 1)</h3>
+<ol class="steps small">
+<li>Ukuran grup <b>1, 2, 4, 8, 16</b> (2ⁿ). Tidak boleh 3, 5, 6.</li>
+<li>Bentuk <b>persegi / persegi panjang</b>, horizontal &amp; vertikal saja. Tidak boleh diagonal atau bentuk L.</li>
+<li>Grup <b>sebesar mungkin</b> (makin besar → makin sedikit literal).</li>
+<li>Jumlah grup <b>sesedikit mungkin</b>, tapi semua 1 harus tertutup.</li>
+<li>Grup boleh <b>overlap</b>.</li>
+<li>Map <b>melingkar</b>: kiri ↔ kanan, atas ↔ bawah, <b>4 pojok</b> = 1 grup.</li>
+<li>Jangan buat grup yang semua selnya sudah ditutup grup lain.</li>
+</ol>
+<h3><span class="n">4</span>Cara membaca grup</h3>
+<p class="small">Lihat tiap variabel di seluruh sel grup: <b>berubah</b> (0 dan 1) → buang · <b>selalu 1</b> → tulis \(a\) · <b>selalu 0</b> → tulis \(\bar a\). Untuk <b>POS</b> (grup angka 0) dibalik: selalu 0 → \(a\), selalu 1 → \(\bar a\), dan tiap grup jadi sum term (OR).</p>
+<table class="full small"><thead><tr><th>Ukuran grup</th><th>3 var</th><th>4 var</th><th>5 var</th></tr></thead>
+<tr><td>1 sel</td><td>3 literal</td><td>4</td><td>5</td></tr><tr><td>2 (pair)</td><td>2</td><td>3</td><td>4</td></tr>
+<tr><td>4 (quad)</td><td>1</td><td>2</td><td>3</td></tr><tr><td>8 (octet)</td><td>y = 1</td><td>1</td><td>2</td></tr></table>
+<div class="row">{{inc:k4_corner}}{{inc:k4_wrap}}</div>
+</div>
+</div>
+</section>
+
+<section class="t-kmap">
+<anchor id="s3-dc" />
+<h2 class="sec"><span>Don't care, 5 variabel, rangkaian</span><span class="tab">3</span></h2>
+<div class="two">
+<div>
+<h3><span class="n">5</span>Don't care (X)</h3>
+<p class="small">Kombinasi input yang <b>tidak mungkin terjadi</b> (mis. BCD 1010–1111) atau outputnya tidak penting. Boleh dianggap 1 <b>kalau membuat grup lebih besar</b>, boleh diabaikan kalau tidak. X <b>tidak wajib</b> ditutup grup. Contoh papan tulis: m5, m6, m7 = X.</p>
+<div class="row">{{inc:dc_x1}}{{inc:dc_x0}}</div>
+<p class="small">Dengan X: \(y = a + \bar b c + b\bar c\) (3 term pendek). Tanpa X: \(y=\bar a\bar b c+\bar a b\bar c+a\bar b\bar c\) (3 term panjang). Pakai X kalau soal bilang “tidak mungkin terjadi”.</p>
+<h3><span class="n">6</span>K-map 5 variabel</h3>
+<p class="small">Buat <b>2 map 4×4</b>: satu untuk a = 0 (m0–m15), satu untuk a = 1 (m16–m31), isi dengan b c d e. Sel di <b>posisi yang sama</b> di kedua map = bersebelahan → bisa digabung (a hilang). Grup yang hanya ada di satu map ditulis dengan \(\bar a\) atau \(a\).</p>
+{{inc:k5_ex}}
+<p class="small">PR5 Q28: Σm(4–7, 12–15, 20–23). Map a = 0: octet “c” (m4–7, m12–15), ada di map ini saja → \(\bar a c\). Map a = 1: quad \(\bar b c\) (m20–23); posisi yang sama di map a = 0 (m4–7) juga 1 → a hilang → \(\bar b c\). Hasil: \(y=\bar a c + \bar b c\).</p>
+</div>
+<div>
+<anchor id="s3-circ" />
+<h3><span class="n">7</span>Menggambar rangkaian dari SOP</h3>
+<ol class="steps small">
+<li>Tulis semua input sebagai garis vertikal. Butuh \(\bar a\)? Tambah NOT, buat garis baru.</li>
+<li>Setiap product term = <b>1 gerbang AND</b> (titik ● = sambungan).</li>
+<li>Semua output AND masuk ke <b>1 gerbang OR</b> → y.</li>
+<li>Term 1 literal tidak perlu AND, langsung ke OR.</li>
+</ol>
+<p class="small"><b>Contoh papan tulis:</b> \(y = cd + \bar a b d + \bar a\bar b c\)</p>
+<div class="svgw">{{svg:c_board}}</div>
+<anchor id="s5-nand" />
+<div class="box small"><b>NAND–NAND:</b> SOP bisa dibuat hanya dengan NAND: ganti semua AND dan OR dengan NAND (bubble ganda saling hapus). \(y = ab+ac+bc = \overline{\overline{ab}\cdot\overline{ac}\cdot\overline{bc}}\). POS → NOR–NOR.</div>
+<table class="full small"><thead><tr><th>Metode</th><th>Cocok untuk</th></tr></thead>
+<tr><td>Boolean algebra</td><td>soal “buktikan / sederhanakan dengan hukum”, ada XOR/bar panjang, ≤ 3 variabel</td></tr>
+<tr><td>K-map</td><td>2–5 variabel, menjamin minimal, ada don't care, diminta SOP <b>dan</b> POS</td></tr>
+<tr><td>Truth table</td><td>soal cerita &amp; mengecek jawaban</td></tr></table>
+</div>
+</div>
+</section>

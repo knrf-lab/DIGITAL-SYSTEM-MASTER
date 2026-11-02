@@ -1,0 +1,4 @@
+dist/
+gen/
+__pycache__/
+svg/

@@ -1,0 +1,48 @@
+<section class="t-start" style="break-before:auto">
+<anchor id="S0" label="0 · Start + Index" />
+<h1>Digital System — UTS Open-Book Binder</h1>
+<p style="font-size:10pt;color:#444;margin:0 0 1.5mm">CPEN6265010 · semua materi sesi 1–14 · fokus tutorial: Boolean, K-map, soal cerita, 7-segment · tambahan: PLD, FPGA, VHDL (lab)</p>
+<div class="two" style="grid-template-columns:1.25fr 1fr">
+<div>
+<h3>Format UTS (kata prof): 4 soal</h3>
+<table class="full fmt small">
+<tr><td class="big" style="background:#1e66d0">1</td><td><b>Konsep</b> (sistem digital, sinyal, timing diagram, gerbang, PLD/VHDL)</td><td>{{p:S1}}</td></tr>
+<tr><td class="big" style="background:#d35400">2</td><td><b>LED / 7-segment decoder</b></td><td>{{p:S4}}</td></tr>
+<tr><td class="big" style="background:#6a35b0">3</td><td><b>Sederhanakan persamaan Boolean</b></td><td>{{p:S2}}</td></tr>
+<tr><td class="big" style="background:#00796b">4</td><td><b>Soal cerita</b> (“got talent”) → truth table → K-map → rangkaian</td><td>{{p:s3-gt}}</td></tr>
+</table>
+</div>
+<div class="box small">
+<b class="c">Notasi</b>: \(\bar a\) = NOT a (= a′ di PR) · \(\overline{a+b}\) bar panjang = NOT seluruh grup · \(ab\) = AND · \(a+b\) = OR (1 + 1 = 1) · \(a\oplus b=\bar ab+a\bar b\) · urutan: ( )/bar → NOT → AND → OR. Tab 4: input <b>A B C D</b> (A = MSB), segmen a–g.<br>
+<b class="c">Di ujian</b>: (1) cari tipe soal di index → (2) tiru layout contohnya → (3) tulis nama hukum / grup K-map di tiap langkah → (4) cek 2 baris truth table → (5) bingung? Jebakan {{p:SX}}.
+</div>
+</div>
+
+<anchor id="SI" />
+<h3>Index: kata di soal → metode → halaman</h3>
+<table class="idx">
+<tr class="grp"><td colspan="3">Konsep (soal 1)</td></tr>
+<tr><td>sistem digital, sinyal &amp; logika, analog vs digital</td><td>2 nilai diskrit 0/1; tabel analog–digital</td><td>{{p:S1}}</td></tr>
+<tr><td>TTL, HIGH/LOW, rising/falling edge, periode, duty cycle</td><td>0 V/5 V; f = 1/T; D = t<sub>W</sub>/T</td><td>{{p:s1-ttl}}</td></tr>
+<tr><td>timing diagram, “gambarkan output”</td><td>tiap interval = 1 baris truth table</td><td>{{p:s1-wave}}</td></tr>
+<tr><td>gerbang, simbol, universal gate, NAND saja</td><td>tabel 7 gerbang; SOP → NAND–NAND</td><td>{{p:s1-gates}}</td></tr>
+<tr><td>biner/oktal/heksa, 2's complement, BCD, Gray, parity</td><td>bagi 2 berulang; flip + 1 lalu jumlahkan</td><td>{{p:s5-num}}</td></tr>
+<tr><td>adder, comparator, decoder, MUX, AOI</td><td>rangkaian kombinasional</td><td>{{p:SL}}</td></tr>
+<tr><td>PLD, PAL/GAL, CPLD, FPGA, CLB, LUT, macrocell</td><td>arsitektur PLD</td><td>{{p:s6-pld}}</td></tr>
+<tr><td>design flow, synthesis, netlist, boundary scan</td><td>6 tahap</td><td>{{p:s6-flow}}</td></tr>
+<tr><td>VHDL, entity, architecture, signal vs variable, process, port map</td><td>VHDL essentials + contoh lab</td><td>{{p:s6-vhdl}}</td></tr>
+<tr class="grp"><td colspan="3">Sederhanakan (soal 3)</td></tr>
+<tr><td>sederhanakan / simplify / buktikan / prove</td><td>resep 6 langkah + nama hukum</td><td>{{p:s2-recipe}}</td></tr>
+<tr><td>bar panjang, \(x+\bar xy\), \((x+y)(x+z)\), 3 term dengan x &amp; x̄</td><td>De Morgan, rule 11, rule 12, consensus</td><td>{{p:s2-laws}}</td></tr>
+<tr><td>⊕ di dalam soal · soal identitas singkat (a + 0 = ?)</td><td>contoh G · tabel 27 identitas</td><td>{{p:s2-ex}} · {{p:s2-27}}</td></tr>
+<tr class="grp"><td colspan="3">Soal cerita &amp; K-map (soal 4)</td></tr>
+<tr><td>panitia, juri, mayoritas, lolos, “jika … maka …”</td><td>5 langkah: I/O → truth table → Σm → K-map → rangkaian</td><td>{{p:s3-gt}}</td></tr>
+<tr><td>minterm, maxterm, SOP, POS, Σm, ΠM</td><td>tabel minterm/maxterm</td><td>{{p:s3-mm}}</td></tr>
+<tr><td>K-map 2/3/4/5 variabel, don't care (X)</td><td>template, aturan grouping</td><td>{{p:s3-tpl}} · {{p:s3-dc}}</td></tr>
+<tr><td>gambarkan rangkaian · robot / avionics / baterai</td><td>AND–OR dari SOP · 3 case PR5</td><td>{{p:s3-circ}} · {{p:s3-case}}</td></tr>
+<tr class="grp"><td colspan="3">LED / 7-segment (soal 2)</td></tr>
+<tr><td>BCD ke 7-segment, decoder, nyala/padam</td><td>tabel lengkap + 7 K-map</td><td>{{p:S4}} · {{p:s4-k}}</td></tr>
+<tr><td>common cathode / anode, 0–7 saja, heksa 0–F</td><td>CC 1 = nyala, CA 0 = nyala; variasi</td><td>{{p:s4-cc}} · {{p:s4-var}}</td></tr>
+</table>
+<p class="small" style="color:#666;margin-top:1mm">Sumber: slide sesi 1–14 (Floyd), catatan tutorial 02-11-2026, foto papan tulis, PR Pert. 2/4/5, lembar 27 soal, kode lab. Semua persamaan, K-map, dan angka contoh dihitung ulang &amp; dicek komputer.</p>
+</section>

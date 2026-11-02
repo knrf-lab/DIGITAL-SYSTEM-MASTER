@@ -1,0 +1,63 @@
+<section class="t-seg">
+<anchor id="S4" label="4 · Seven-segment decoder" />
+<h2 class="sec"><span>Seven-segment (LED) decoder: tabel lengkap <span class="sub">· soal 2</span></span><span class="tab">4</span></h2>
+<div class="two" style="grid-template-columns: 1.55fr 1fr">
+<div>
+<h3><span class="n">1</span>BCD → 7-segment, common cathode (1 = nyala)</h3>
+{{inc:seg_table}}
+<p class="small">Input <b>A B C D</b>: A = MSB (8), D = LSB (1) → baris = nomor minterm m0–m15. Angka 6 pakai “ekor” (segmen a nyala), angka 9 pakai segmen d. Baris 10–15 bukan BCD valid → <b>don't care (X)</b> saat merancang.</p>
+</div>
+<div>
+<h3><span class="n">2</span>Nama segmen</h3>
+<div class="row">{{svg:seg_diagram}}<p class="small" style="flex:1">Searah jarum jam dari atas: <b>a</b> atas, <b>b</b> kanan-atas, <b>c</b> kanan-bawah, <b>d</b> bawah, <b>e</b> kiri-bawah, <b>f</b> kiri-atas, <b>g</b> tengah (+ dp, titik desimal).</p></div>
+<anchor id="s4-cc" />
+<h3><span class="n">3</span>Common cathode vs common anode</h3>
+<table class="full small">
+<thead><tr><th></th><th>Common cathode (CC)</th><th>Common anode (CA)</th></tr></thead>
+<tr><td>Pin bersama</td><td>katoda → GND</td><td>anoda → VCC</td></tr>
+<tr><td>Segmen nyala jika</td><td>input <b>1</b> (HIGH)</td><td>input <b>0</b> (LOW)</td></tr>
+<tr><td>Driver</td><td>active-HIGH (74LS48)</td><td>active-LOW (74LS47)</td></tr>
+<tr><td>Tabel</td><td>tabel di kiri</td><td><b>balik semua bit</b> a–g</td></tr>
+</table>
+<p class="small">CA: persamaannya \(\bar a, \bar b, …\) dari tabel CC. Cara cepat: group angka <b>0</b> di K-map CC → itu SOP untuk output CA (active-LOW).</p>
+<h3><span class="n">4</span>Langkah merancang decoder</h3>
+<ol class="steps small">
+<li>Truth table: 4 input BCD → 7 output (a–g). Baris 10–15 = X.</li>
+<li><b>1 K-map per segmen</b> (7 K-map), isi 1/0 dari kolom segmennya, X di m10–m15.</li>
+<li>Group angka 1, <b>pakai X kalau membesarkan grup</b> → SOP tiap segmen.</li>
+<li>Segmen yang OFF-nya sedikit (b, c) → lebih cepat group angka 0 (POS).</li>
+<li>Gambar rangkaian per segmen: AND–OR (atau NAND–NAND).</li>
+</ol>
+<div class="warn">Nama bertabrakan: di papan tulis input ditulis “d c b a” <b>dan</b> segmen juga a–g. Pakai A B C D (huruf besar) untuk input, a–g (kecil) untuk segmen, dan <b>tulis konvensinya</b> di jawaban (“A = MSB”).</div>
+</div>
+</div>
+</section>
+
+<section class="t-seg">
+<anchor id="s4-k" />
+<h2 class="sec"><span>7 K-map (X = don't care m10–m15) &amp; semua persamaan</span><span class="tab">4</span></h2>
+{{inc:seg_kmaps}}
+{{inc:seg_eqs}}
+<div class="two">
+<div>
+<h4>Segmen c lewat angka 0 (POS)</h4>
+<div class="row">{{inc:seg_c_pos}}<p class="small" style="flex:1">Segmen c hanya OFF di angka 2 (0010). Group 0 itu bersama X m10 → \(\bar c = \bar B C\bar D\) → De Morgan: \(c = \overline{\bar B C \bar D} = B + \bar C + D\). Sama dengan hasil SOP.<br>Maxterm murni (tanpa X): \(c = (A + B + \bar C + D)\).</p></div>
+<div class="warn">Papan tulis menulis segmen c = (a + b̄ + c + d). Itu <b>salah</b>: angka 2 = 0010, jadi maxterm-nya \((A+B+\bar C+D)\). Prof sendiri bilang sempat keliru di kelas.</div>
+</div>
+<div>
+<anchor id="s4-var" />
+<h4>Variasi soal yang mungkin</h4>
+<ul class="small">
+<li><b>Common anode</b> → tulis tabel terbalik (0 = nyala), atau tulis \(\bar a = …\) dari grup angka 0.</li>
+<li><b>Hanya 0–7 (3 bit A B C)</b> → 8 baris, K-map 3 variabel, <b>tanpa</b> don't care.</li>
+<li><b>Heksadesimal 0–F</b> → 16 baris semua terpakai, <b>tanpa X</b>; huruf A b C d E F:</li>
+</ul>
+{{inc:hex_icons}}
+<ul class="small">
+<li><b>“Hanya segmen tertentu”</b> → kerjakan hanya K-map segmen yang diminta.</li>
+<li><b>Tanpa ekor</b> (74LS47 asli: 6 tanpa a, 9 tanpa d) → ubah 2 sel itu, hasil a dan d berubah. Ikuti tabel yang diberikan soal.</li>
+<li><b>LED biasa</b> (bukan 7-seg), mis. “LED nyala jika …” → sama dengan soal cerita: 1 LED = 1 output = 1 K-map.</li>
+</ul>
+</div>
+</div>
+</section>
